@@ -1,0 +1,84 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="{% static 'dashboard/favicon.png' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+   <link href="{% static 'src/output.css' %}" rel="stylesheet">
+  
+</head>
+<body
+  class="flex items-center justify-center min-h-screen bg-cover bg-center"
+  style="background-image: linear-gradient(#0000003c,#0000003c), url('{% static 'dashboard/bg.jpg' %}');"
+>
+  <div class="relative z-10 bg-white/95 rounded-2xl shadow-lg w-full max-w-md p-8 m-4">
+    <h2 class="text-2xl font-semibold text-center mb-1">Welcome back</h2>
+    <p class="text-gray-500 text-center mb-6">Login to your account</p>
+
+    <form method="POST" action="{% url 'admin_login' %}" class="space-y-4">
+      {% if messages %}
+  <div class="mb-4">
+    {% for message in messages %}
+      <div class="px-4 py-2 rounded-md mb-2 
+        {% if message.tags == 'success' %} bg-green-100 text-green-700
+        {% elif message.tags == 'error' %} bg-red-100 text-red-700
+        {% elif message.tags == 'warning' %} bg-yellow-100 text-yellow-700
+        {% else %} bg-gray-100 text-gray-700 {% endif %}
+      ">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+      {% csrf_token %}
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm font-medium mb-1">E-mail</label>
+        <input
+          type="email"
+          name="username"
+          placeholder="janedoe@gmail.com"
+          class="w-full border border-gray-300 rounded-md p-2 focus:outline-none text-gray-400 text-sm focus:ring-1 focus:ring-orange-400"
+        />
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Password</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Minimum of 8 characters"
+          class="w-full border border-gray-300 rounded-md text-gray-400 text-sm p-2 pr-10 focus:outline-none focus:ring-1 focus:ring-orange-400"
+        />
+        <div class="text-right mt-1">
+          <a href="#" class="text-sm text-blue-600 hover:underline">Forgot Password?</a>
+        </div>
+      </div>
+
+      <!-- Keep me logged in -->
+      <div class="flex items-center space-x-2">
+        <input type="checkbox" id="keepLoggedIn" class="accent-orange-400" />
+        <label for="keepLoggedIn" class="text-sm text-gray-600">Keep me logged in</label>
+      </div>
+
+      <!-- Login Button -->
+      <button
+        type="submit"
+        class="w-full bg-orange-400 hover:bg-orange-500 text-white font-medium py-2 rounded-md transition"
+      >
+        Login
+      </button>
+
+  
+      </div>
+
+      <!-- Sign Up -->
+      
+    </form>
+  </div>
+</body>
+</html>

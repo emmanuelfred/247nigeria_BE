@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="{% static 'dashboard/favicon.png' %}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Admin Dashboard{% endblock %}</title>
+  <link href="{% static 'src/output.css' %}" rel="stylesheet">
+</head>
+<body class="flex min-h-screen bg-gray-50 w-full">
+
+  <!-- Sidebar -->
+  {% block sidebar %}
+    {% include "shared/sidebar.html" %}
+  {% endblock %}
+
+  <!-- Main content -->
+  <main class="flex-1 ">
+    <!-- Header -->
+    {% block header %}
+      {% include "shared/header.html" %}
+    {% endblock %}
+    {% if messages %}
+  <div class="mb-4">
+    {% for message in messages %}
+      <div class="px-4 py-2 rounded-md mb-2 my-3
+        {% if message.tags == 'success' %} bg-green-100 text-green-700
+        {% elif message.tags == 'error' %} bg-red-100 text-red-700
+        {% elif message.tags == 'warning' %} bg-yellow-100 text-yellow-700
+        {% else %} bg-gray-100 text-gray-700 {% endif %}
+      ">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+    <!-- Page specific content -->
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+  {% block scripts %}{% endblock %}
+
+
+</body>
+</html>
