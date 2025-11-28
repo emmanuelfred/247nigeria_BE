@@ -33,7 +33,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+       'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -49,10 +49,9 @@ INSTALLED_APPS = [
 ]
 AUTH_USER_MODEL = 'accounts.User'
 
-MIDDLEWARE = [
 
-    'corsheaders.middleware.CorsMiddleware',  # <-- add this
-    'django.middleware.security.SecurityMiddleware',
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,9 +60,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-]
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_HEADERS = ['*']
+CORS_ALLOW_METHODS = ['*']
+
 
 REST_FRAMEWORK = {
 
@@ -144,12 +144,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 # Static files (CSS, JS, images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]  # for dev
-STATIC_ROOT = BASE_DIR / "staticfiles"    # for collectstatic on production
 
-# Media files (user uploads)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
+# For development, optional
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Where collectstatic will collect files (used if DEBUG=False)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
